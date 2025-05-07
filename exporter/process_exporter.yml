@@ -1,5 +1,24 @@
+# process_exporter.yml
+
 process:
   patterns:
-    - name: '.*'
-      pid: ''
-      
+    - name: '.*'              # все процессы
+      pid: ''                  # PID не используется.
+      # Дополнительные метрики
+      metrics:
+        - name: "process_resident_memory_bytes"  # Отслеживание резидентной памяти
+        - name: "process_virtual_memory_bytes"   # Отслеживание виртуальной памяти
+        - name: "process_cpu_seconds_total"       # Общее время CPU для процесса
+        - name: "process_open_fds"                 # Количество открытых дескрипторов файлов
+    
+    - name: 'nginx'           # Пример для отслеживания только процессов Nginx
+      pid: ''                  # PID не используется.
+      metrics:
+        - name: "process_resident_memory_bytes"
+        - name: "process_open_fds"
+
+    - name: 'java'             # Пример для отслеживания всех Java процессов
+      pid: ''                  # PID не используется.
+      metrics:
+        - name: "process_cpu_seconds_total"
+        - name: "process_virtual_memory_bytes"

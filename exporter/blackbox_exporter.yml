@@ -1,0 +1,34 @@
+modules:
+  http_2xx:
+    prober: http
+    timeout: 5s
+    valid_http_versions: [ " " ]
+    valid_http_methods: [ "GET" ]
+    metrics:
+      - metric: up
+        help: "Whether the HTTP request was successful."
+    headers:
+      Host: "example.com"
+    whitelist:
+      - "200"
+      - "204"
+      - "301"
+      - "302"
+      - "401"
+      - "403"
+      
+  tcp_connect:
+    prober: tcp
+    timeout: 5s
+
+  icmp:
+    prober: icmp
+    timeout: 5s
+    ttl: 64
+
+  dns_query:
+    prober: dns
+    timeout: 5s
+    dns_lookups:
+      - name: "example.com"
+        type: "A"

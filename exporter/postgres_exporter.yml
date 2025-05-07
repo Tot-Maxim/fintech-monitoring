@@ -1,0 +1,22 @@
+# postgres_exporter.yml
+
+# Настройки подключения к PostgreSQL
+data_source_name: "user=credit-score password=credit-score-password host=postgres port=5432 dbname=your_database sslmode=disable"
+
+# Если вы ищете, как безопасно хранить данные, рассмотрите использование переменных окружения
+env:
+  POSTGRES_USER: "credit-score"
+  POSTGRES_PASSWORD: "credit-score-password"
+  POSTGRES_DB: "credit-score_database"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: 5432
+
+# Настройки метрик
+collect:
+  pg_stat_activity: true
+  pg_stat_database: true
+  pg_stat_bgwriter: true
+  pg_stat_replication: true
+  pg_stat_user_tables: true
+
+log_level: "info"  # Уровень логирования

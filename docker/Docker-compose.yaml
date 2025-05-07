@@ -57,13 +57,19 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
   postgres_exporter:
     image: wrouesnel/postgres_exporter
     environment:
-      - DATA_SOURCE_NAME=postgresql://user:password@postgres:5432/dbname  # данные
+      - DATA_SOURCE_NAME=postgresql://credit-score:credit-score-password@postgres:5432/credit-score_database
     ports:
       - "9187:9187"
+    volumes:
+      - ./postgres_exporter.yml:/etc/postgres_exporter.yml  # конфигурационный файл
+    command:
+      - "--config.file=/etc/postgres_exporter.yml"  # путь к конфигурационному файлу
 
   grafana:
     image: grafana/grafana
