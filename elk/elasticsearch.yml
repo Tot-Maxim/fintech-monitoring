@@ -1,0 +1,34 @@
+# имя кластера
+cluster.name: credit-score
+
+# имя узла
+node.name: credit-score-node-01
+
+# путь к данным
+path.data: /var/lib/elasticsearch
+
+# путь к логам
+path.logs: /var/log/elasticsearch
+
+# Настройка сетевых параметров
+network.host: 0.0.0.0      # Позволяет доступ с любого IP-адреса (измените по мере необходимости)
+http.port: 9200              # Порт для HTTP
+transport.tcp.port: 9300     # Порт для транспортного протокола
+
+# Настройки кластера
+discovery.seed_hosts: ["192.168.1.2", "192.168.1.3"]  # IP-адреса других узлов в кластере
+cluster.initial_master_nodes: ["credit-score-node-01", "credit-score-node-02"]  # Имена узлов, которые будут мастерами при первом запуске кластера
+
+# Настройки памяти Java
+# Необходимо установить в соответствии с доступной памятью на сервере
+bootstrap.memory_lock: true   # Запрет на замещение памяти
+# jvm.options (например: -Xms2g -Xmx2g) лучше указывать в отдельном файле jvm.options
+
+# Настройки безопасности (при необходимости)
+# xpack.security.enabled: true   # Включить безопасность (если используете X-Pack)
+# xpack.security.transport.ssl.enabled: true
+# xpack.security.http.ssl.enabled: true
+
+# Другие настройки
+index.number_of_shards: 1      # Количество шардов по умолчанию
+index.number_of_replicas: 1     # Количество реплик по умолчанию

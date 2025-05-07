@@ -10,8 +10,8 @@ route:
 receivers:
 - name: 'email-alert'
   email_configs:
-  - to: 'your-email@example.com'  # Укажите ваш email
-    from: 'alertmanager@example.com'  # Укажите email отправителя
+  - to: 'your-email@example.com'
+    from: 'alertmanager@example.com'
     smarthost: 'smtp.example.com:587'  # SMTP сервер
     auth_username: 'your-username'
     auth_password: 'your-password'

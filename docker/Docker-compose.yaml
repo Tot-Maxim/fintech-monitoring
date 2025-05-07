@@ -28,7 +28,7 @@ services:
       - '--config.file=/etc/alertmanager/config.yml'
 
   node_exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter
     ports:
       - "9100:9100"
 
@@ -47,6 +47,23 @@ services:
     volumes:
       - ./custom_exporter.yml:/etc/custom_exporter.yml
     command: ["--config.file=/etc/custom_exporter.yml"]
+
+  blackbox_exporter:
+    image: prom/blackbox-exporter
+    ports:
+      - "9115:9115"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+
+  postgres_exporter:
+    image: wrouesnel/postgres_exporter
+    environment:
+      - DATA_SOURCE_NAME=postgresql://user:password@postgres:5432/dbname  # данные
+    ports:
+      - "9187:9187"
 
   grafana:
     image: grafana/grafana

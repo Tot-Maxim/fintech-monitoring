@@ -1,0 +1,38 @@
+# имя узла Kibana
+server.name: "credit-score-kibana"
+
+# адрес, на который будет подключаться Kibana
+server.host: "0.0.0.0"  # Позволяет доступ с любого IP-адреса (можно изменить для безопасности)
+
+# порт, на котором будет работать Kibana
+server.port: 5601
+
+# Настройки Elasticsearch
+elasticsearch.hosts: ["http://localhost:9200"]  # Адрес вашего сервера Elasticsearch
+
+# Настройки сервера
+logging.dest: stdout  # либо "/var/log/kibana/kibana.log"
+logging.verbose: true  # детализированный вывод логов
+
+# Кросс-доменные запросы
+# server.cors.enabled: true   # если нужно поддерживать CORS
+
+# Подключение к Elasticsearch с использованием базовой аутентификации (если включено)
+# elasticsearch.username: "credit-score_username"
+# elasticsearch.password: "credit-score_password"
+
+# Настройки безопасности (нужны, если включен X-Pack)
+# xpack.security.enabled: true
+# xpack.security.session.enabled: true
+
+# Дополнительные параметры (например, для временных меток)
+# timepicker.quickRanges: 
+#   - from: "now-15m"
+#     to: "now"
+#     label: "Last 15 minutes"
+#   - from: "now-1h"
+#     to: "now"
+#     label: "Last 1 hour"
+#   - from: "now-24h"
+#     to: "now"
+#     label: "Last 24 hours"

@@ -2,7 +2,7 @@
 FROM maven:3.9.0-openjdk-17 AS build
 
 # Устанавливаем рабочую директорию
-WORKDIR /app
+WORKDIR /credit-score
 
 # Копируем pom.xml и исходный код для зависимостей
 COPY pom.xml .
@@ -15,10 +15,10 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 
 # Устанавливаем рабочую директорию
-WORKDIR /app
+WORKDIR /credit-score
 
 # Копируем jar-файл приложения из предыдущего этапа сборки
-COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /credit-score/target/demo-0.0.1-SNAPSHOT.jar credit-score.jar
 
 # Запускаем приложение
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "credit-score.jar"]
