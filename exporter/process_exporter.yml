@@ -1,0 +1,5 @@
+process:
+  patterns:
+    - name: '.*'
+      pid: ''
+      

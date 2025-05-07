@@ -1,0 +1,64 @@
+services:
+  app:
+    build:
+      context: ../java-application
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../java-application/src/main/resources:/app/resources  # Подключаем конфигурационные файлы
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  # Конфигурация Prometheus
+      - ./prometheus/prometheus_rules.yml:/etc/prometheus/prometheus_rules.yml  # Правила для алертов
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--rules.file=/etc/prometheus/prometheus_rules.yml'  # Путь к правилам
+
+  alertmanager:
+    image: prom/alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/config.yml  # Конфигурация Alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - "9100:9100"
+
+  process_exporter:
+    image: gliderlabs/process-exporter:latest
+    ports:
+      - "9256:9256"
+    volumes:
+      - ./process_exporter.yml:/etc/process_exporter.yml
+    command: ["--config.file=/etc/process_exporter.yml"]
+
+  custom_exporter:
+    image: your/custom-exporter-image:latest
+    ports:
+      - "9101:9101"
+    volumes:
+      - ./custom_exporter.yml:/etc/custom_exporter.yml
+    command: ["--config.file=/etc/custom_exporter.yml"]
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+networks:
+  credit-score-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  grafana_data:

@@ -1,0 +1,29 @@
+groups:
+  - name: application-alerts
+    rules:
+      - alert: JavaAppDown
+        expr: up{job="credit-score-platform"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Java Application is down"
+          description: "The Java application is down for more than 5 minutes."
+
+      - alert: HighLoadAverage
+        expr: avg by(instance) (rate(node_load1[1m])) > 0.7
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Load Average"
+          description: "Load average is above 0.7 for more than 5 minutes."
+
+      - alert: SlowRequestProcessing
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Slow Request Processing"
+          description: "Request processing time is above 0.5 seconds for 95th percentile."

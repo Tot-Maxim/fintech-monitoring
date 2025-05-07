@@ -1,0 +1,4 @@
+# Конфигурация для custom_exporter
+custom_exporter:
+  api:
+    url: "http://your-api-endpoint.com/metrics"
