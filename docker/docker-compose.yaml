@@ -1,7 +1,7 @@
 services:
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.53.3
     container_name: prometheus
     networks:
       - credit-score-network
@@ -15,7 +15,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:12.0.0
     container_name: grafana
     networks:
       - credit-score-network
@@ -28,6 +28,14 @@ services:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
     command: [ "--config", "/etc/grafana/grafana.ini" ]
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    networks:
+      - credit-score-network
+    ports:
+      - "9100:9100"
 
 networks:
   credit-score-network:
