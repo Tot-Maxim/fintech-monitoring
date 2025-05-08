@@ -1,0 +1,34 @@
+services:
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    networks:
+      - credit-score-network
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus/prometheus_rules.yml:/etc/prometheus/prometheus_rules.yml
+      - ../exporter/:/etc/prometheus/exporters
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks:
+      - credit-score-network
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../grafana/dashboards:/var/lib/grafana/dashboards
+      - ../grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    command: [ "--config", "/etc/grafana/grafana.ini" ]
+
+networks:
+  credit-score-network:
+    driver: bridge
