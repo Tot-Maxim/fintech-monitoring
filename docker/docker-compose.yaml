@@ -37,6 +37,26 @@ services:
     ports:
       - "9100:9100"
 
+  blackbox_exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox_exporter
+    networks:
+      - credit-score-network
+    ports:
+      - "9115:9115"
+
+  process_exporter:
+    image: ncabatoff/process-exporter:latest
+    container_name: process_exporter
+    networks:
+      - credit-score-network
+    ports:
+      - "9256:9256"
+    volumes:
+      - ../exporter/process_exporter/process_exporter.yml:/etc/process_exporter/config.yml
+    command: [ "-config.path=/etc/process_exporter/config.yml" ]
+
+
 networks:
   credit-score-network:
     driver: bridge

@@ -1,0 +1,25 @@
+# process_exporter.yml
+
+process:
+  patterns:
+    - name: 'prometheus'          # Отслеживание процессов Prometheus
+      pid: ''                      # PID не используется.
+      metrics:
+        - name: "process_resident_memory_bytes"
+        - name: "process_cpu_seconds_total"
+        - name: "process_open_fds"
+
+    - name: 'grafana'             # Отслеживание процессов Grafana
+      pid: ''                      # PID не используется.
+      metrics:
+        - name: "process_resident_memory_bytes"
+        - name: "process_cpu_seconds_total"
+        - name: "process_open_fds"
+
+    - name: '.*'                  # Отслеживание всех остальных процессов
+      pid: ''                      # PID не используется.
+      metrics:
+        - name: "process_resident_memory_bytes"
+        - name: "process_virtual_memory_bytes"
+        - name: "process_cpu_seconds_total"
+        - name: "process_open_fds"
