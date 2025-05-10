@@ -8,3 +8,4 @@ modules:
       fail_if_not_ssl: true
       tls_config:
         insecure_skip_verify: true
+    ip_protocol: "ip4"
