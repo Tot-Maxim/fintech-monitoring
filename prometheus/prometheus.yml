@@ -34,3 +34,7 @@ scrape_configs:
         target_label: __param_target
       - target_label: __address__
         replacement: blackbox_exporter:9115  # Адрес Blackbox Exporter
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres_exporter:9187']

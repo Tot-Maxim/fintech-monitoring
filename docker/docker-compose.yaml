@@ -52,7 +52,6 @@ services:
     volumes:
       - ../exporter/blackbox_exporter.yml:/etc/blackbox_exporter/config.yml
 
-
   process_exporter:
     image: ncabatoff/process-exporter:latest
     container_name: process_exporter
@@ -63,6 +62,19 @@ services:
     volumes:
       - ../exporter/process_exporter/process_exporter.yml:/etc/process_exporter/config.yml
     command: [ "-config.path=/etc/process_exporter/config.yml" ]
+
+  postgres_exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: postgres_exporter
+    networks:
+      - credit-score-network
+    ports:
+      - "9187:9187"
+    environment:
+      DATA_SOURCE_NAME: "user=credit_score password=credit_score host=192.168.31.32 port=5432 dbname=fintech_credit_conveyor sslmode=disable"
+    volumes:
+      - ../exporter/postgres_exporter.yml:/etc/postgres_exporter/config.yml
+#    command: [ "--config.file=/etc/postgres_exporter/config.yml" ]
 
 
 networks:
