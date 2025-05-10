@@ -71,10 +71,9 @@ services:
     ports:
       - "9187:9187"
     environment:
-      DATA_SOURCE_NAME: "user=credit_score password=credit_score host=192.168.31.32 port=5432 dbname=fintech_credit_conveyor sslmode=disable"
+      DATA_SOURCE_NAME: "user=${USERNAME} password=${PASSWORD} host=${HOST} port=${PORT} dbname=${DBNAME} sslmode=disable"
     volumes:
       - ../exporter/postgres_exporter.yml:/etc/postgres_exporter/config.yml
-#    command: [ "--config.file=/etc/postgres_exporter/config.yml" ]
 
 
 networks:
