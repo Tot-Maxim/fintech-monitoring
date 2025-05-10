@@ -1,4 +1,3 @@
-# blackbox_exporter.yml
 modules:
   http_2xx_ssl:
     prober: http
@@ -8,4 +7,3 @@ modules:
       fail_if_not_ssl: true
       tls_config:
         insecure_skip_verify: true
-

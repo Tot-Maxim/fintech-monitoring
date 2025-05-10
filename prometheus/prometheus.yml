@@ -22,19 +22,25 @@ scrape_configs:
     static_configs:
       - targets: ['grafana:3000']
 
-  - job_name: 'ssl_check'
+  - job_name: 'blackbox_exporter'
     metrics_path: /probe
     params:
-      module: [http_2xx_ssl]  # Модуль, определенный в blackbox.yml
+      module: ['http_2xx_ssl']
     static_configs:
       - targets:
-          - https://localhost  # URL для проверки SSL
+          - 'https://192.168.31.32'
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115  # Адрес Blackbox Exporter
+        replacement: "blackbox_exporter:9115"
 
   - job_name: 'postgres'
     static_configs:
       - targets: ['postgres_exporter:9187']
+
+  - job_name: 'pushgateway'
+    static_configs:
+      - targets: ['pushgateway:9091']
