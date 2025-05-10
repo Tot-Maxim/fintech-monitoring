@@ -1,3 +1,4 @@
+# prometheus_rules.yml
 groups:
   - name: application-alerts
     rules:

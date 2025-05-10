@@ -1,3 +1,4 @@
+# blackbox_exporter.yml
 modules:
   http_2xx_ssl:
     prober: http

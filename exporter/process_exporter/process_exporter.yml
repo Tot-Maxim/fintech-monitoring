@@ -1,5 +1,4 @@
 # process_exporter.yml
-
 process:
   patterns:
     - name: 'prometheus'          # Отслеживание процессов Prometheus

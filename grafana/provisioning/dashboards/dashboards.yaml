@@ -1,3 +1,4 @@
+#dashboards.yaml
 apiVersion: 1
 providers:
   - name: 'default'
