@@ -1,34 +1,9 @@
 modules:
-  http_2xx:
+  http_2xx_ssl:
     prober: http
-    timeout: 5s
-    valid_http_versions: [ " " ]
-    valid_http_methods: [ "GET" ]
-    metrics:
-      - metric: up
-        help: "Whether the HTTP request was successful."
-    headers:
-      Host: "example.com"
-    whitelist:
-      - "200"
-      - "204"
-      - "301"
-      - "302"
-      - "401"
-      - "403"
-      
-  tcp_connect:
-    prober: tcp
-    timeout: 5s
-
-  icmp:
-    prober: icmp
-    timeout: 5s
-    ttl: 64
-
-  dns_query:
-    prober: dns
-    timeout: 5s
-    dns_lookups:
-      - name: "example.com"
-        type: "A"
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+      fail_if_ssl: false
+      fail_if_not_ssl: true
+      tls_config:
+        insecure_skip_verify: true
